@@ -11,7 +11,8 @@ ENV STUNNEL_SHA256 0ee64774d7a720f3ffd129b08557ee0882704c7f65b859c40e315a175b68a
 ENV STUNNEL_FILE stunnel-$STUNNEL_VER.tar.gz
 ENV STUNNEL_TEMP stunnel-$STUNNEL_VER-build
 ENV STUNNEL_CONF_DIR /etc/stunnel
-ENV STUNNEL_DEPS build-essential libssl-dev curl
+ENV STUNNEL_DEPS openssl
+ENV $BUILD_DEPS build-essential libssl-dev curl
 
 RUN set -xe \
     && apt-get update \
