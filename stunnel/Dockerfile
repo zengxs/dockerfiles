@@ -20,7 +20,7 @@ RUN set -xe \
     && mkdir $STUNNEL_TEMP \
         && cd $STUNNEL_TEMP \
         && curl -sSL $STUNNEL_URL -o $STUNNEL_FILE \
-        && echo "$STUNNEL_SHA256 $STUNNEL_FILE" | sha256sum -c \
+        && echo "$STUNNEL_SHA256  $STUNNEL_FILE" | sha256sum -c \
         && tar -xf $STUNNEL_FILE --strip 1 \
         && ./configure \
         && make install \
