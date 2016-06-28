@@ -9,4 +9,4 @@ ENV KMS_DIR /kms
 
 ADD ./py-kms $KMS_DIR
 
-CMD ["stunnel", "$KMS_DIR/server.py"]
+CMD ["python", "$KMS_DIR/server.py"]
