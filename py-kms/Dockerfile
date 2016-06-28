@@ -5,8 +5,8 @@
 FROM python:2-alpine
 MAINTAINER Samuel X. S. Zeng <i@xlibc.me>
 
-ENV KMS_DIR /kms
+ADD ./py-kms /kms
 
-ADD ./py-kms $KMS_DIR
+EXPOSE 1688
 
-CMD ["python", "$KMS_DIR/server.py"]
+CMD ["python", "/kms/server.py"]
