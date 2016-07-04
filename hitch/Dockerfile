@@ -12,7 +12,7 @@ ENV HITCH_FILE hitch-$HITCH_VER.tar.gz
 ENV HITCH_TEMP hitch-$HITCH_VER-build
 
 ENV HITCH_DEPS openssl libev
-ENV BUILD_DEPS curl alpine-sdk openssl-dev
+ENV BUILD_DEPS curl alpine-sdk openssl-dev libev-dev
 
 RUN set -xe \
     && apk update \
@@ -22,7 +22,7 @@ RUN set -xe \
         && curl -sSL $HITCH_URL -o $HITCH_FILE \
         && echo "$HITCH_SHA256  $HITCH_FILE" | sha256sum -c \
         && tar -xf $HITCH_FILE --strip 1 \
-        && ./bootstrap && ./configure \
+        && ./configure --with-rst2man=/bin/true \
         && make install \
         && cd .. \
     && rm -rf $HITCH_TEMP $HITCH_FILE \
