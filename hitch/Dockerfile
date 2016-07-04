@@ -8,8 +8,8 @@ MAINTAINER Samuel X. S. Zeng <i@xlibc.me>
 ENV HITCH_VER 1.20
 ENV HITCH_URL https://hitch-tls.org/source/hitch-$HITCH_VER.tar.gz
 ENV HITCH_SHA256 cc836bfc6d0593284d0236f004e5ee8fd5e41fc3231d81ab4b69feb7a6b4ac41
-ENV HITCH_FILE hitch-$STUNNEL_VER.tar.gz
-ENV HITCH_TEMP hitch-$STUNNEL_VER-build
+ENV HITCH_FILE hitch-$HITCH_VER.tar.gz
+ENV HITCH_TEMP hitch-$HITCH_VER-build
 
 ENV HITCH_DEPS openssl libev
 ENV BUILD_DEPS curl alpine-sdk openssl-dev
