@@ -3,9 +3,9 @@
 #
 
 FROM alpine:latest
-MAINTAINER Samuel Tseng <samuel@tseng.pw>
+MAINTAINER Samuel X.S Zeng <samuel.zxs@gmail.com>
 
-ENV STUNNEL_VER 5.32
+ENV STUNNEL_VER 5.35
 ENV STUNNEL_URL https://www.stunnel.org/downloads/stunnel-$STUNNEL_VER.tar.gz
 ENV STUNNEL_SHA256 0ee64774d7a720f3ffd129b08557ee0882704c7f65b859c40e315a175b68a6fd
 ENV STUNNEL_FILE stunnel-$STUNNEL_VER.tar.gz
@@ -28,8 +28,6 @@ RUN set -xe \
         && rm -rf $STUNNEL_TEMP $STUNNEL_FILE \
     && apk --purge del $BUILD_DEPS \
     && mkdir -p $STUNNEL_CONF_DIR
-
-ADD ./stunnel.conf $STUNNEL_CONF_DIR/stunnel.conf
 
 ENV CFG_FILE $STUNNEL_CONF_DIR/stunnel.conf
 
