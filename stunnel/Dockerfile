@@ -3,7 +3,7 @@
 #
 
 FROM alpine:latest
-MAINTAINER Samuel X.S Zeng <samuel.zxs@gmail.com>
+MAINTAINER Samuel X.S Tseng <samuel.zxs@gmail.com>
 
 ENV STUNNEL_VER 5.35
 ENV STUNNEL_URL https://www.stunnel.org/downloads/stunnel-$STUNNEL_VER.tar.gz

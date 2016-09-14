@@ -3,7 +3,7 @@
 #
 
 FROM alpine:latest
-MAINTAINER Samuel X.S. Zeng <samuel.zxs@gmail.com>
+MAINTAINER Samuel X.S. Tseng <samuel.zxs@gmail.com>
 
 ENV SQUID_PKGS squid squid-lang-zh
 

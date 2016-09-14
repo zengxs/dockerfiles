@@ -3,7 +3,7 @@
 #
 
 FROM python:2-alpine
-MAINTAINER Samuel X. S. Zeng <i@xlibc.me>
+MAINTAINER Samuel X. S. Tseng <i@xlibc.me>
 
 ADD ./py-kms /kms
 

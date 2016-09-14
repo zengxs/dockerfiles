@@ -3,7 +3,7 @@
 #
 
 FROM alpine:latest
-MAINTAINER Samuel X. S. Zeng <i@xlibc.me>
+MAINTAINER Samuel X. S. Tseng <i@xlibc.me>
 
 ENV HITCH_VER 1.2.0
 ENV HITCH_URL https://hitch-tls.org/source/hitch-$HITCH_VER.tar.gz
