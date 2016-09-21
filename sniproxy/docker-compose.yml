@@ -1,0 +1,10 @@
+sniproxy:
+    image: samuelts/sniproxy
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - "./sniproxy-test.conf:/etc/sniproxy/sniproxy.conf"
+        - "./log:/var/log/sniproxy"
+    # links:
+    #     - xxx
