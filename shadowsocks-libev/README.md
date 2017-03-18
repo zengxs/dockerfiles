@@ -11,7 +11,7 @@ $ docker run -d -e METHOD=aes-128-cfb -e PASSWORD=a8z78FyrPRD7 -p 8388:8388 --re
 $ docker ps
 ```
 
-> :warning: 你可以[点击这里]生成一个随机密码。
+> :warning: 你可以[点击这里](https://duckduckgo.com/?q=password+12&t=ffsb&ia=answer)生成一个随机密码。
 
 ### 使用 docker-compose 管理
 使用 [docker-compose](https://github.com/docker/compose) 可以非常方便的管理 Docker 容器。
