@@ -1,4 +1,0 @@
-[submodule "py-kms/py-kms"]
-	path = py-kms/py-kms
-	url = https://github.com/matsuz/py-kms
-	branch = master
