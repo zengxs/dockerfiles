@@ -1,0 +1,3 @@
+[submodule "elasticsearch-head/elasticsearch-head"]
+	path = elasticsearch-head/elasticsearch-head
+	url = https://github.com/mobz/elasticsearch-head.git
