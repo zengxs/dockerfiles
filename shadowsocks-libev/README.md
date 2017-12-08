@@ -7,7 +7,7 @@
 ## 如何使用
 ### 命令行运行
 ```sh
-$ docker run -d -e METHOD=aes-128-cfb -e PASSWORD=a8z78FyrPRD7 -p 8388:8388 --restart always matsuz/shadowsocks-libev
+$ docker run -d -e METHOD=aes-128-cfb -e PASSWORD=a8z78FyrPRD7 -p 8388:8388 --restart always zengxss/shadowsocks-libev
 $ docker ps
 ```
 
@@ -19,7 +19,7 @@ $ docker ps
 这是一个简单的 `docker-compose.yml` 文件示例：
 ```yml
 shadowsocks:
-  image: matsuz/shadowsocks-libev
+  image: zengxss/shadowsocks-libev
   ports:
     - "8388:8388/tcp"
     - "8388:8388/udp"
@@ -37,7 +37,7 @@ shadowsocks:
 ```sh
 $ mkdir -p ~/fig/shadowsocks/
 $ cd ~/fig/shadowsocks/
-$ curl -sSLO https://github.com/matsuz/dockerfiles/raw/master/shadowsocks-libev/docker-compose.yml
+$ curl -sSLO https://github.com/zengxss/dockerfiles/raw/master/shadowsocks-libev/docker-compose.yml
 $ docker-compose up -d
 $ docker-compose ps
 ```
@@ -54,5 +54,3 @@ $ docker --version
 ```sh
 $ sudo apt install docker.io
 ```
-
-## 
