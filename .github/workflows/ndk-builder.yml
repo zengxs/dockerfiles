@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - "ndk-builder/**"
+  workflow_dispatch:
 
 permissions:
   contents: read
