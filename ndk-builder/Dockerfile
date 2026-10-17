@@ -35,6 +35,7 @@ RUN set -euo pipefail \
         protobuf-devel \
         curl \
         jq \
+        glab \
         oras \
         ripgrep \
         tar \
