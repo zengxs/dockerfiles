@@ -38,8 +38,6 @@ RUN mkdir -p /tmp/ohos-tools /opt/ohos \
 # ============================================= #
 FROM opensuse/leap:16.0 AS final
 
-SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
-
 ARG ANDROID_API=35
 ARG BUILD_TOOLS_VERSION=34.0.0
 ARG TASK_VERSION=3.54.0
@@ -50,7 +48,8 @@ ENV JAVA_HOME_21=/usr/lib64/jvm/java-21-openjdk
 ENV OHOS_COMMAND_LINE_TOOLS_HOME=/opt/ohos/command-line-tools
 ENV PATH=/usr/local/bin:${JAVA_HOME}/bin:${OHOS_COMMAND_LINE_TOOLS_HOME}/bin:${ANDROID_HOME}/platform-tools:/opt/osxcross/bin:${PATH}
 
-RUN test "$(uname -m)" = x86_64 \
+RUN set -euo pipefail \
+    && test "$(uname -m)" = x86_64 \
     && zypper -n ar https://download.opensuse.org/repositories/devel:tools:compiler/16.0/devel:tools:compiler.repo \
     && zypper -n --gpg-auto-import-keys ref \
     && zypper -n in --no-recommends -t pattern 'devel_C_C++' \
@@ -88,24 +87,32 @@ RUN test "$(uname -m)" = x86_64 \
         which \
     && zypper clean --all
 
-RUN python3 -m venv /opt/task \
+# Install go-task
+RUN set -euo pipefail \
+    && python3.13 -m venv /opt/task \
     && /opt/task/bin/python -m pip install --no-cache-dir \
         "go-task-bin==${TASK_VERSION}" \
     && ln -s /opt/task/bin/task /usr/local/bin/task \
     && task --version
 
-RUN install -d -m 0755 "${ANDROID_HOME}" \
+# Install Android CLI
+RUN set -euo pipefail \
+    && test "$(uname -m)" = x86_64 \
+    && install -d -m 0755 "${ANDROID_HOME}" \
     && curl --fail --show-error --location --retry 3 \
         https://dl.google.com/android/cli/latest/linux_x86_64/android \
         --output /usr/local/bin/android \
     && chmod 0755 /usr/local/bin/android \
-    && android --no-metrics --version
+    && android --version
 
-RUN android --no-metrics --sdk="${ANDROID_HOME}" sdk install \
+# Install Android SDK
+RUN set -euo pipefail \
+    && android --no-metrics --sdk="${ANDROID_HOME}" sdk install \
         platform-tools \
         "platforms/android-${ANDROID_API}" \
         "build-tools/${BUILD_TOOLS_VERSION}" \
-    && android --no-metrics --sdk="${ANDROID_HOME}" sdk list
+    && android --no-metrics --sdk="${ANDROID_HOME}" sdk list \
+    && "${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" --version
 
 COPY --from=intermediate /opt/ohos/ /opt/ohos/
 COPY --from=intermediate /opt/osxcross/ /opt/osxcross/
@@ -116,5 +123,3 @@ RUN /opt/osxcross/bin/osxcross
 
 RUN printf '%s\n' /opt/osxcross/lib > /etc/ld.so.conf.d/osxcross.conf \
     && ldconfig
-
-CMD ["/bin/bash"]
