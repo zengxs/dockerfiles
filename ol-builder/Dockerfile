@@ -111,8 +111,7 @@ RUN set -euo pipefail \
         platform-tools \
         "platforms/android-${ANDROID_API}" \
         "build-tools/${BUILD_TOOLS_VERSION}" \
-    && android --no-metrics --sdk="${ANDROID_HOME}" sdk list \
-    && "${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" --version
+    && android --no-metrics --sdk="${ANDROID_HOME}" sdk list
 
 COPY --from=intermediate /opt/ohos/ /opt/ohos/
 COPY --from=intermediate /opt/osxcross/ /opt/osxcross/
