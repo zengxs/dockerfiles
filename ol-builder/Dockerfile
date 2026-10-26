@@ -3,17 +3,18 @@ FROM ghcr.io/crazy-max/osxcross:26.1-r0-ubuntu AS osxcross
 # ============================================= #
 FROM opensuse/leap:16.0 AS intermediate
 
-SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 WORKDIR /tmp
 
-RUN test "$(uname -m)" = x86_64 \
+RUN set -euo pipefail \
+    && test "$(uname -m)" = x86_64 \
     && zypper -n --gpg-auto-import-keys refresh \
     && zypper -n install --no-recommends ca-certificates oras unzip tar gzip \
     && zypper clean --all
 
 COPY --from=osxcross /osxcross/ /opt/osxcross/
 
-RUN rm -rf /opt/osxcross/SDK \
+RUN set -euo pipefail \
+    && rm -rf /opt/osxcross/SDK \
     && mkdir -p /opt/osxcross/SDK /tmp/ios-sdks \
     && oras pull ghcr.io/zengxs/apple-ios-sdks:26.1-xcode26.1.1-17b100-40333668404-1 \
         --output /tmp/ios-sdks \
@@ -24,7 +25,8 @@ RUN rm -rf /opt/osxcross/SDK \
     && chmod -R a+rX /opt/osxcross \
     && rm -rf /tmp/ios-sdks
 
-RUN mkdir -p /tmp/ohos-tools /opt/ohos \
+RUN set -euo pipefail \
+    && mkdir -p /tmp/ohos-tools /opt/ohos \
     && oras pull docker.io/zengxs/ohos-commandline-tools:26.0.0.821 \
         --output /tmp/ohos-tools \
     && unzip -q /tmp/ohos-tools/commandline-tools-linux-x64-26.0.0.821.zip -d /opt/ohos \
@@ -94,6 +96,17 @@ RUN set -euo pipefail \
         "go-task-bin==${TASK_VERSION}" \
     && ln -s /opt/task/bin/task /usr/local/bin/task \
     && task --version
+
+# Install Quarto
+ARG QUARTO_VER=1.10.19
+RUN set -euo pipefail \
+    && mkdir -p /opt/quarto \
+    && curl -sSLo /tmp/quarto.tar.gz \
+        https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VER}/quarto-${QUARTO_VER}-linux-amd64.tar.gz \
+    && tar --strip-components=1 -xf /tmp/quarto.tar.gz -C /opt/quarto \
+    && rm -rf /tmp/quarto.tar.gz \
+    && ln -s /opt/quarto/bin/quarto /usr/local/bin/quarto \
+    && quarto --version
 
 # Install Android CLI
 RUN set -euo pipefail \
