@@ -66,6 +66,7 @@ RUN set -euo pipefail \
         libncurses6 \
         libstdc++6 \
         libz1 \
+        libglvnd \
         java-17-openjdk-devel \
         java-21-openjdk-devel \
         python313 \
