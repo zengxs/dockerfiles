@@ -69,6 +69,7 @@ RUN set -euo pipefail \
         libglvnd \
         java-17-openjdk-devel \
         java-21-openjdk-devel \
+        python3-base \
         python313 \
         python313-pip \
         python313-Jinja2 \
